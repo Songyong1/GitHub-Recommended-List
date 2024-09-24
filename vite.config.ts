@@ -27,8 +27,9 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       proxy: {
         "/v1": {
           // target: process.env.APIGW_URL,
-          target: "http://192.168.20.14:8000",
+          // target: "http://192.168.20.14:8000",
           // target: "http://192.168.20.14:8001",
+          target: "http://192.168.20.14:8080",
           changeOrigin: true,
           ws: true
         }

@@ -60,7 +60,10 @@ const onUpdate = async (formEl: FormInstance | undefined) => {
         delete data.repeatPassword;
         delete data.verifyCode;
         updateConfirm(data).then(res => {
-          const { message } = res || {};
+          let message: string | undefined;
+          if ("message" in res && res.message === "string") {
+            message = res.message;
+          }
           ElMessage({
             message: message,
             type: "success"

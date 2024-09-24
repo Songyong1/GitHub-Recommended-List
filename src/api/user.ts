@@ -74,22 +74,22 @@ export type success = {
 
 /** 登录 */
 export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", "v1/login", { data });
+  return http.request<UserResult>("post", "v1/user/login", { data });
 };
 
 /*获取邮箱验证码*/
 export const getVerifyCode = (data?: object) => {
-  return http.request<success>("post", "/v1/verify", { data });
+  return http.request<success>("post", "v1/user/verify", { data });
 };
 
 /*注册*/
 export const updateConfirm = (data?: object) => {
-  return http.request<success>("post", "/v1/register", { data });
+  return http.request<success>("post", "v1/user/register", { data });
 };
 
 /*更新用户信息*/
 export const updateInfo = (data?: object) => {
-  return http.request<success>("put", "/v1/user", { data });
+  return http.request<success>("put", "v1/user/user", { data });
 };
 
 /** 刷新`token` */

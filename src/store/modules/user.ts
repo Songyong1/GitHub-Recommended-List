@@ -81,7 +81,7 @@ export const useUserStore = defineStore({
       return new Promise<UserResult>((resolve, reject) => {
         getLogin(data)
           .then(res => {
-            if (res?.message) setToken(res.data);
+            if (res) setToken(res.data);
             resolve(data);
           })
           .catch(error => {

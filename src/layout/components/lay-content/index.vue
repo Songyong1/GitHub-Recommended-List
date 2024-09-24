@@ -211,5 +211,7 @@ const transitionMain = defineComponent({
 
 .main-content {
   margin: 24px;
+  height: 100%;
+  overflow: auto;
 }
 </style>
