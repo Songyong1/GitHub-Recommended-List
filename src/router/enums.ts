@@ -2,7 +2,7 @@
 
 const home = 0, // 平台规定只有 home 路由的 rank 才能为 0 ，所以后端在返回 rank 的时候需要从非 0 开始
   projectTrends = 1,
-  ganttastic = 2,
+  projectOwer = 2,
   components = 3,
   able = 4,
   table = 5,
@@ -25,7 +25,8 @@ const home = 0, // 平台规定只有 home 路由的 rank 才能为 0 ，所以�
   mind = 22,
   guide = 23,
   menuoverflow = 24,
-  vueflow = 25;
+  vueflow = 25,
+  ganttastic = 26;
 
 export {
   home,
@@ -53,5 +54,6 @@ export {
   mind,
   guide,
   menuoverflow,
-  projectTrends
+  projectTrends,
+  projectOwer
 };

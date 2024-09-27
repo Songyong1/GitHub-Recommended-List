@@ -1,47 +1,82 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted, defineComponent } from "vue";
+import { useRouter } from "vue-router";
 import { getTrendsInfo, getLanguages, getInfo } from "@/api/trends";
 import pentagram from "@/assets/svg/pentagram.svg?component";
+
 const infoCard = ref([]);
 const languageList = ref([]);
 const isActive = ref(false);
 const selectedLanguage = ref("");
+const router = useRouter();
+const total = ref(0);
+const currentPage = ref(1);
 const data = reactive({
   object: {},
-  languageId: "",
-  page: 1,
-  pageSize: 10
+  languageId: 0,
+  pageNum: 1,
+  pageSize: 50
 });
 const selectLanguage = (language, id) => {
   isActive.value = !isActive.value;
   selectedLanguage.value = language;
   data.languageId = id;
+  data.pageNum = 1;
+  currentPage.value = 1;
   getInfo(data).then(res => {
     infoCard.value = res.data.repos;
+    total.value = Number(res.data.total);
+  });
+};
+const search = () => {
+  getTrendsInfo(data).then(res => {
+    infoCard.value = res.data.repos;
+    total.value = Number(res.data.total);
   });
 };
 const getAll = () => {
-  getTrendsInfo(data).then(res => {
+  try {
+    data.languageId = 0;
+    data.pageNum = 1;
+    currentPage.value = 1;
     selectedLanguage.value = "";
-    infoCard.value = res.data.repos;
-  });
+    search();
+  } catch (err) {
+    console.log(err);
+  }
 };
-const toGithub = url => {
+onMounted(() => {
+  gitcard();
+});
+const gitcard = async () => {
+  try {
+    data.languageId = 0;
+    search();
+  } catch (err) {
+    console.log(err);
+  }
+};
+const toGithub = (url: string) => {
   window.open(url, "_blank");
 };
 const toLanguage = () => {
   window.open("https://www.baidu.com/", "_black");
 };
-const toOwner = () => {
-  window.open("https://www.baidu.com/", "_blank");
+const toOwner = (name: string) => {
+  router.push({ path: "/project-ower/index", query: { name: name } });
 };
-getTrendsInfo(data).then(res => {
-  infoCard.value = res.data.repos;
-  console.log(infoCard, "infoCard");
-});
+const currentChange = (val: number) => {
+  currentPage.value = val;
+  data.pageNum = val;
+  try {
+    search();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 getLanguages(data).then(res => {
   languageList.value = res.data.languages;
-  console.log(languageList, "ssssssss");
 });
 </script>
 
@@ -90,7 +125,7 @@ getLanguages(data).then(res => {
                 }}</span>
                 <span
                   class="inline-block w-max text-sm text-slate-400 bottom-line"
-                  @click="toOwner"
+                  @click.stop="toOwner(item.ownerName)"
                   >{{ item.ownerName }}</span
                 >
               </div>
@@ -116,7 +151,7 @@ getLanguages(data).then(res => {
               </div>
             </div>
             <div class="pt-5 pl-5 text-slate-500 text-xs flex">
-              <span class="bottom-line" @click="toLanguage">
+              <span class="bottom-line" @click.stop="toLanguage">
                 {{ item.language }}
               </span>
               <span class="pl-4 flex">
@@ -127,6 +162,16 @@ getLanguages(data).then(res => {
           </div>
         </el-col>
       </el-row>
+    </div>
+    <div class="pagination-container">
+      <el-pagination
+        background
+        :current-page="currentPage"
+        :page-size="data.pageSize"
+        layout="total, prev, pager, next"
+        :total="total"
+        @current-change="currentChange"
+      />
     </div>
   </div>
 </template>
@@ -160,5 +205,10 @@ getLanguages(data).then(res => {
       border-bottom: 1px solid rgb(100 116 139);
     }
   }
+}
+.pagination-container {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
 }
 </style>

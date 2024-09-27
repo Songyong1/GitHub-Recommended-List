@@ -3,19 +3,18 @@ import { http } from "@/utils/http";
 export type projectTrends = {};
 
 //github项目趋势
-export const getTrendsInfo = (data?: { object }) => {
+export const getTrendsInfo = (data?: any) => {
   let page = { page: data };
+  let languageId = data.languageId;
   delete page.page.object;
   return http.request<any>("post", "/v1/opensource/repo", {
-    data: { ...page }
+    data: { ...data, languageId }
   });
 };
 //获取筛选后的内容
-export const getInfo = (data?: { object; languageId }) => {
+export const getInfo = (data?: any) => {
   let page = { page: data };
   let languageId = data.languageId;
-  delete data.languageId;
-  delete page.page.object;
   return http.request<any>("post", "/v1/opensource/repo", {
     data: { ...page, languageId }
   });
