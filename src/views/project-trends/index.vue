@@ -4,12 +4,31 @@ import { useRouter } from "vue-router";
 import { getTrendsInfo, getLanguages, getInfo } from "@/api/trends";
 import pentagram from "@/assets/svg/pentagram.svg?component";
 
-const infoCard = ref([]);
-const languageList = ref([]);
-const isActive = ref(false);
-const selectedLanguage = ref("");
+type list = {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+  repoUrl: string;
+  bio: string;
+};
+
+type info = {
+  htmlUrl: string;
+  name: string;
+  image: string;
+  ownerName: string;
+  desc: string;
+  language: string;
+  stargazersCount: number;
+};
+
+const infoCard = ref<info[]>([]);
+const languageList = ref<list[]>([]);
+const isActive = ref<boolean>(false);
+const selectedLanguage = ref<string>("");
 const router = useRouter();
-const total = ref(0);
+const total = ref<number>(0);
 const currentPage = ref(1);
 const data = reactive({
   object: {},
