@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, defineComponent } from "vue";
-import { useRouter } from "vue-router";
 import { getTrendsInfo, getLanguages, getInfo } from "@/api/trends";
-import pentagram from "@/assets/svg/pentagram.svg?component";
+import card from "@/views/public-components/card.vue";
 
 type list = {
   id: number;
@@ -27,14 +26,14 @@ const infoCard = ref<info[]>([]);
 const languageList = ref<list[]>([]);
 const isActive = ref<boolean>(false);
 const selectedLanguage = ref<string>("");
-const router = useRouter();
 const total = ref<number>(0);
 const currentPage = ref(1);
 const data = reactive({
   object: {},
   languageId: 0,
   pageNum: 1,
-  pageSize: 50
+  pageSize: 50,
+  order: 1
 });
 const selectLanguage = (language, id) => {
   isActive.value = !isActive.value;
@@ -65,9 +64,9 @@ const getAll = () => {
   }
 };
 onMounted(() => {
-  gitcard();
+  getcard();
 });
-const gitcard = async () => {
+const getcard = async () => {
   try {
     data.languageId = 0;
     search();
@@ -75,15 +74,7 @@ const gitcard = async () => {
     console.log(err);
   }
 };
-const toGithub = (url: string) => {
-  window.open(url, "_blank");
-};
-const toLanguage = () => {
-  window.open("https://www.baidu.com/", "_black");
-};
-const toOwner = (name: string) => {
-  router.push({ path: "/project-ower/index", query: { name: name } });
-};
+
 const currentChange = (val: number) => {
   currentPage.value = val;
   data.pageNum = val;
@@ -124,64 +115,7 @@ getLanguages(data).then(res => {
         >全部</el-button
       >
     </div>
-    <div class="w-3/4 h-48 m-auto">
-      <el-row :gutter="20" class="overflow-y-auto overflow-hidden">
-        <el-col
-          v-for="(item, idx) in infoCard"
-          :key="idx"
-          :span="12"
-          class="mb-5 cursor-pointer"
-          @click.prevent="toGithub(item.htmlUrl)"
-        >
-          <div class="h-48 bg-white rounded-md shadow-md card">
-            <div class="pt-4 ml-5 flex">
-              <div class="w-9">
-                <img class="rounded-md w-9 h-9" :src="item.image" alt="" />
-              </div>
-              <div class="flex flex-col ml-4" style="margin-top: -4px">
-                <span class="text-base text-black font-semibold">{{
-                  item.name
-                }}</span>
-                <span
-                  class="inline-block w-max text-sm text-slate-400 bottom-line"
-                  @click.stop="toOwner(item.ownerName)"
-                  >{{ item.ownerName }}</span
-                >
-              </div>
-            </div>
-            <div>
-              <el-tooltip
-                v-if="item.desc.length > 180"
-                effect="dark"
-                :content="item.desc"
-                placement="top"
-              >
-                <div
-                  class="h-10 m-4 break-words line-clamp-2 text-sm text-slate-400"
-                >
-                  {{ item.desc }}
-                </div>
-              </el-tooltip>
-              <div
-                v-else
-                class="h-10 m-4 break-words line-clamp-2 text-sm text-slate-400"
-              >
-                {{ item.desc }}
-              </div>
-            </div>
-            <div class="pt-5 pl-5 text-slate-500 text-xs flex">
-              <span class="bottom-line" @click.stop="toLanguage">
-                {{ item.language }}
-              </span>
-              <span class="pl-4 flex">
-                <pentagram width="14" height="14" />
-                {{ (item.stargazersCount / 1000).toFixed(2) }}&nbsp;k
-              </span>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
+    <card :info-card="infoCard" />
     <div class="pagination-container">
       <el-pagination
         background
@@ -213,18 +147,7 @@ getLanguages(data).then(res => {
   background-color: rgb(74 222 128);
   color: #fff;
 }
-.card {
-  &:hover {
-    box-shadow:
-      0 10px 15px -3px rgba(0, 0, 0, 0.1),
-      0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  }
-  .bottom-line {
-    &:hover {
-      border-bottom: 1px solid rgb(100 116 139);
-    }
-  }
-}
+
 .pagination-container {
   position: fixed;
   bottom: 10px;
