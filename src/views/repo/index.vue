@@ -1,17 +1,19 @@
 <script lang="ts" setup>
-import { showCard } from "../../mixin/mixins";
-const { infoCard, onMounted, card, getTrendsInfo } = showCard();
-const data = {
-  languageId: "1",
-  order: 1,
+import { showCard } from "@/views/mixin/mixins";
+import { getRepoFav } from "@/api/trends";
+const { infoCard, onMounted, card, reactive } = showCard();
+const data = reactive({
+  // languageId: "9",
+  // order: 1,
+  object: {},
   pageNum: 1,
   pageSize: 50
-};
+});
 onMounted(() => {
   getCard();
 });
 const getCard = () => {
-  getTrendsInfo(data).then(res => {
+  getRepoFav(data).then(res => {
     infoCard.value = res.data.repos;
     // total.value = Number(res.data.total);
   });

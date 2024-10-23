@@ -3,6 +3,23 @@ import { onMounted, reactive, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { owerInfo } from "@/api/ower";
 
+type Info = {
+  avatarUrl: string;
+  bio: string;
+  createdAt: string;
+  email: string;
+  followers: string;
+  following: string;
+  htmlUrl: string;
+  id: number;
+  login: string;
+  name: string;
+  publicRepos: string;
+  publicGists: string;
+  type: string;
+  updatedAt: string;
+};
+
 let ownerInfo = reactive({
   avatarUrl: "",
   bio: "",

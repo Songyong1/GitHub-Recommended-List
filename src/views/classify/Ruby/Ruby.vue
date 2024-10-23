@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { showCard } from "../mixin/mixins";
+import { showCard } from "../../mixin/mixins";
 const { infoCard, onMounted, card, getTrendsInfo } = showCard();
 const data = {
   languageId: "8",

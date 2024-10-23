@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { onMounted } from "vue";
+import { onMounted, reactive } from "vue";
 import card from "@/views/public-components/card.vue";
 import { getTrendsInfo } from "@/api/trends";
 export const showCard = () => {
@@ -18,6 +18,7 @@ export const showCard = () => {
     infoCard,
     onMounted,
     card,
-    getTrendsInfo
+    getTrendsInfo,
+    reactive
   };
 };

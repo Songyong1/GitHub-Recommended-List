@@ -103,7 +103,7 @@ getLanguages(data).then(res => {
         v-for="(v, idx) in languageList"
         :key="idx"
         class="change-language-btn mr-3 px-3 text-center rounded h-7 leading-7 border border-solid border-green-400 text-green-400 shadow-md"
-        :class="{ active: selectedLanguage === v.name }"
+        :class="[selectedLanguage === v.name && 'active']"
         @click="selectLanguage(v.name, v.id)"
         >{{ v.name }}</span
       >

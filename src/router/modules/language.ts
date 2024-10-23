@@ -85,7 +85,7 @@ export default {
     {
       path: "/classify/Rust",
       name: "Rust",
-      component: () => import("@/views/classify/Rust/rust.vue"),
+      component: () => import("@/views/classify/Rust/Rust.vue"),
       meta: {
         title: $t("Rust")
       }
