@@ -14,11 +14,15 @@ export const showCard = () => {
   };
 
   const infoCard = ref<info[]>([]);
+  const total = ref<number>(0);
+  const currentPage = ref(1);
   return {
     infoCard,
     onMounted,
     card,
     getTrendsInfo,
-    reactive
+    reactive,
+    total,
+    currentPage
   };
 };

@@ -1,13 +1,20 @@
 <script lang="ts" setup>
-import { defineProps } from "vue";
+import { defineProps, toRefs, ref, defineEmits } from "vue";
 import { useRouter } from "vue-router";
 import pentagram from "@/assets/svg/pentagram.svg?component";
+import add_fav from "@/components/svgComponents/src/add_fav.vue";
+import { addFavApi, cancelAddFavApi } from "@/api/trends";
+import { ElMessage } from "element-plus";
+import { useNav } from "@/layout/hooks/useNav";
 
 const props = defineProps({
-  infoCard: []
+  infoCard: Array as () => any[]
 });
 
 const router = useRouter();
+const { infoCard } = toRefs(props);
+const { logout } = useNav();
+const emit = defineEmits(["refresh"]);
 
 const toGithub = (url: string) => {
   window.open(url, "_blank");
@@ -17,6 +24,49 @@ const toOwner = (name: string) => {
 };
 const toLanguage = () => {
   window.open("https://www.baidu.com/", "_black");
+};
+
+const reLogin = message => {
+  if (message == "Token is invalid") {
+    ElMessage({
+      message: "登录已过期，请重新登录",
+      type: "warning"
+    });
+    logout();
+    return;
+  }
+};
+const addFav = async (key, id, isFav) => {
+  let data = {
+    repoIds: [id],
+    isFav: isFav ? 1 : 0
+  };
+  console.log(JSON.stringify(data), "dataaa");
+
+  if (isFav) {
+    try {
+      await cancelAddFavApi(data);
+      emit("refresh");
+      ElMessage({
+        message: "已取消收藏",
+        type: "success"
+      });
+    } catch (error) {
+      reLogin(error.response.data.message);
+    }
+  } else {
+    try {
+      console.log(data, "dataaaaa");
+      await addFavApi(data);
+      emit("refresh");
+      ElMessage({
+        message: "收藏成功",
+        type: "success"
+      });
+    } catch (error) {
+      reLogin(error.response.data.message);
+    }
+  }
 };
 </script>
 <template>
@@ -44,6 +94,23 @@ const toLanguage = () => {
                 >{{ item.ownerName }}</span
               >
             </div>
+            <el-tooltip
+              class="box-item"
+              effect="dark"
+              :content="item.isFav ? '取消收藏' : '收藏'"
+              placement="top"
+            >
+              <div
+                class="add-fav ml-auto mr-8"
+                @click.stop="addFav(idx, item.id, item.isFav)"
+              >
+                <add_fav
+                  :fillColor="item.isFav ? 'red' : 'black'"
+                  width="20"
+                  height="20"
+                />
+              </div>
+            </el-tooltip>
           </div>
           <div>
             <el-tooltip

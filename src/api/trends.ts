@@ -25,7 +25,7 @@ export const getLanguages = (params?: { object }) => {
   const urlParams = new URLSearchParams(params);
   return http.request<any>(
     "get",
-    `/v1/opensource/language?page.page=${urlParams.get("page")}&page.pageSize=${urlParams.get("pageSize")}`
+    `/v1/opensource/language?page.page=${urlParams.get("pageNum")}&page.pageSize=${urlParams.get("pageSize")}`
   );
 };
 
@@ -36,4 +36,14 @@ export const getRepoFav = (params?: { object }) => {
     "get",
     `/v1/opensource/repo/fav?page.page=${urlParams.get("page")}&page.pageSize=${urlParams.get("pageSize")}`
   );
+};
+
+//添加收藏夹的内容
+export const addFavApi = data => {
+  return http.request<any>("post", "/v1/opensource/repo/fav", { data: data });
+};
+
+//移除收藏夹的内容
+export const cancelAddFavApi = data => {
+  return http.request<any>("post", "/v1/opensource/repo/fav", { data: data });
 };

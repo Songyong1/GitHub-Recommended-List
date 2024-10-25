@@ -115,7 +115,7 @@ getLanguages(data).then(res => {
         >全部</el-button
       >
     </div>
-    <card :info-card="infoCard" />
+    <card :info-card="infoCard" @refresh="search" />
     <div class="pagination-container">
       <el-pagination
         background
