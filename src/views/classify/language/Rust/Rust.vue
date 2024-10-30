@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { showCard } from "../../mixin/mixins";
+import { showCard } from "@/views/mixin/languageMixins";
 const { infoCard, onMounted, card, getTrendsInfo, total, currentPage } =
   showCard();
 const data = {
-  languageId: "6",
+  languageId: "10",
   order: 1,
   pageNum: 1,
   pageSize: 50
@@ -43,5 +43,5 @@ const currentChange = (val: number) => {
   </div>
 </template>
 <style lang="scss" scoped>
-@import "../pagination.scss";
+@import "../../pagination.scss";
 </style>

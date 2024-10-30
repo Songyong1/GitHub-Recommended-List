@@ -1,19 +1,18 @@
 <script lang="ts" setup>
-import { showCard } from "@/views/mixin/languageMixins";
-import { getRepoFav } from "@/api/trends";
-const { infoCard, onMounted, card, reactive, total, currentPage } = showCard();
-const data = reactive({
-  // languageId: "9",
-  // order: 1,
-  object: {},
-  page: 1,
+import { showCard } from "../../../mixin/languageMixins";
+const { infoCard, onMounted, card, getTrendsInfo, total, currentPage } =
+  showCard();
+const data = {
+  // languageId: "7",
+  id: 7,
+  pageNum: 1,
   pageSize: 50
-});
+};
 onMounted(() => {
   getCard();
 });
 const getCard = () => {
-  getRepoFav(data).then(res => {
+  getTrendsInfo(data).then(res => {
     infoCard.value = res.data.repos;
     total.value = Number(res.data.total);
   });
@@ -21,7 +20,7 @@ const getCard = () => {
 
 const currentChange = (val: number) => {
   currentPage.value = val;
-  data.page = val;
+  data.pageNum = val;
   try {
     getCard();
   } catch (err) {
@@ -44,10 +43,6 @@ const currentChange = (val: number) => {
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-.pagination-container {
-  position: fixed;
-  bottom: 10px;
-  right: 20px;
-}
+<style lang="scss" scope>
+@import "../../pagination.scss";
 </style>

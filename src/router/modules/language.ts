@@ -11,81 +11,82 @@ export default {
   },
   children: [
     {
-      path: "/classify/python",
+      path: "/classify/language/python",
       name: "python",
-      component: () => import("@/views/classify/python/python.vue"),
+      component: () => import("@/views/classify/language/python/python.vue"),
       meta: {
         title: $t("python")
       }
     },
     {
-      path: "/classify/javascript",
+      path: "/classify/language/javascript",
       name: "javascript",
-      component: () => import("@/views/classify/javascript/javascript.vue"),
+      component: () =>
+        import("@/views/classify/language/javascript/javascript.vue"),
       meta: {
         title: $t("javascript")
       }
     },
     {
-      path: "/classify/java",
+      path: "/classify/language/java",
       name: "java",
-      component: () => import("@/views/classify/java/java.vue"),
+      component: () => import("@/views/classify/language/java/java.vue"),
       meta: {
         title: $t("java")
       }
     },
     {
-      path: "/classify/c++",
+      path: "/classify/language/c++",
       name: "c++",
-      component: () => import("@/views/classify/c++/c++.vue"),
+      component: () => import("@/views/classify/language/c++/c++.vue"),
       meta: {
         title: $t("c++")
       }
     },
     {
-      path: "/classify/C-Sharp",
+      path: "/classify/language/C-Sharp",
       name: "C-Sharp",
-      component: () => import("@/views/classify/C-Sharp/C-Sharp.vue"),
+      component: () => import("@/views/classify/language/C-Sharp/C-Sharp.vue"),
       meta: {
         title: $t("C-Sharp")
       }
     },
     {
-      path: "/classify/php",
+      path: "/classify/language/php",
       name: "php",
-      component: () => import("@/views/classify/php/php.vue"),
+      component: () => import("@/views/classify/language/php/php.vue"),
       meta: {
         title: $t("php")
       }
     },
     {
-      path: "/classify/c",
+      path: "/classify/language/c",
       name: "c",
-      component: () => import("@/views/classify/c/c.vue"),
+      component: () => import("@/views/classify/language/c/c.vue"),
       meta: {
         title: $t("c")
       }
     },
     {
-      path: "/classify/Ruby",
+      path: "/classify/language/Ruby",
       name: "Ruby",
-      component: () => import("@/views/classify/Ruby/Ruby.vue"),
+      component: () => import("@/views/classify/language/Ruby/Ruby.vue"),
       meta: {
         title: $t("Ruby")
       }
     },
     {
-      path: "/classify/go",
+      path: "/classify/language/go",
       name: "go",
-      component: () => import("@/views/classify/go/go.vue"),
+      component: () => import("@/views/classify/language/go/go.vue"),
       meta: {
         title: $t("menus.go")
       }
     },
     {
-      path: "/classify/Rust",
+      path: "/classify/language/Rust",
       name: "Rust",
-      component: () => import("@/views/classify/Rust/Rust.vue"),
+      component: () => import("@/views/classify/language/Rust/Rust.vue"),
       meta: {
         title: $t("Rust")
       }

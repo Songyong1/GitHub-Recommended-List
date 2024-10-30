@@ -11,6 +11,16 @@ export const getTrendsInfo = (data?: any) => {
     data: { ...data, languageId }
   });
 };
+
+//github项目趋势
+export const getClassifyInfo = (data?: any) => {
+  let page = { page: data };
+  let languageId = data.languageId;
+  delete page.page.object;
+  return http.request<any>("post", "/v1/opensource/repo/category", {
+    data: { ...data, languageId }
+  });
+};
 //获取筛选后的内容
 export const getInfo = (data?: any) => {
   let page = { page: data };

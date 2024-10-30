@@ -5,7 +5,7 @@ const home = 0, // 平台规定只有 home 路由的 rank 才能为 0 ，所以�
   projectOwer = 2,
   repoFav = 3,
   language = 4,
-  table = 5,
+  repositories = 5,
   form = 6,
   list = 7,
   result = 8,
@@ -28,7 +28,8 @@ const home = 0, // 平台规定只有 home 路由的 rank 才能为 0 ，所以�
   vueflow = 25,
   ganttastic = 26,
   components = 27,
-  able = 28;
+  able = 28,
+  table = 29;
 
 export {
   home,
@@ -36,6 +37,7 @@ export {
   ganttastic,
   repoFav,
   language,
+  repositories,
   able,
   table,
   form,
